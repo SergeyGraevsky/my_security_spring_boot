@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User</title>
+</head>
+<body>
+<div th:align="right">
+  Your login is: <b th:inline="text"> [[${#httpServletRequest.remoteUser}]] </b>
+  <form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+  </form>
+</div>
+<p th:text="${user.getId()}">VALUE</p>
+<p th:text="${user.getName()}">VALUE</p>
+<p th:text="${user.getSurname()}">VALUE</p>
+<p th:text="${user.getYearOfBirth()}">VALUE</p>
+<p th:text="${user.getUsername()}">VALUE</p>
+<span th:each="userRole : ${user.getRoles()}">
+    <p th:text="${userRole.role}">VALUE</p>
+</span>
+
+
+<a th:href="@{/{id}/edit(id=${user.getId()})}">Edit!</a>
+<br/>
+<br/>
+<form th:method="POST" th:action="@{/user/delete/{id}(id=${user.getId()})}">
+  <input type="submit" value="DELETE!"/>
+</form>
+</body>
+</html>
