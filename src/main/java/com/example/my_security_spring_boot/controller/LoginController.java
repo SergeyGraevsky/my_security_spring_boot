@@ -14,6 +14,7 @@ public class LoginController {
     @GetMapping("/hello")
     public String printWelcome(@AuthenticationPrincipal User activeUser, Model model) {
         model.addAttribute("roles", activeUser.getRoles());
+        model.addAttribute("activeUser", activeUser);
         return "hello";
     }
 

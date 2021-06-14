@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private String surname;
 
     @Column(name = "year_of_Birth")
-    private int yearOfBirth;
+    private Integer yearOfBirth;
 
     @Column(name = "password")
     private String password;
@@ -50,6 +50,15 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public User(Long id, String name, String surname, Integer yearOfBirth, String password, String username) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.yearOfBirth = yearOfBirth;
+        this.password = password;
+        this.username = username;
+    }
+
     public Long getId() {
         return id;
     }
@@ -74,11 +83,11 @@ public class User implements UserDetails {
         this.surname = surname;
     }
 
-    public int getYearOfBirth() {
+    public Integer getYearOfBirth() {
         return yearOfBirth;
     }
 
-    public void setYearOfBirth(int yearOfBirth) {
+    public void setYearOfBirth(Integer yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
     }
 

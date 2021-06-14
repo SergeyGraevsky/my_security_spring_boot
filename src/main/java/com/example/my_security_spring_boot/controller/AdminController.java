@@ -5,6 +5,7 @@ import com.example.my_security_spring_boot.models.User;
 import com.example.my_security_spring_boot.service.RoleService;
 import com.example.my_security_spring_boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,20 +28,13 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String index(Model model) {
+    public String index(@AuthenticationPrincipal User activeUser,
+                        Model model,
+                        @ModelAttribute("user") User user) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("roles", activeUser.getRoles());
+        model.addAttribute("activeUser", activeUser);
         return "admin";
-    }
-
-    @GetMapping("/user/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        return "showuser";
-    }
-
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
-        return "new";
     }
 
     @PostMapping("/new")
@@ -55,14 +49,8 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        return "edit";
-    }
-
     @PostMapping("/user/{id}")
-    public String update(@ModelAttribute("user") User user, @RequestParam ArrayList<String> role) {
+    public String update(@ModelAttribute("user") User user, @RequestParam ArrayList<String> role, @PathVariable("id") long id) {
         Set<Role> roleSet = new HashSet<>();
         for (String roleId : role) {
             roleSet.add(roleService.getById(Long.valueOf(roleId)));
