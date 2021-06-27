@@ -29,17 +29,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public User getUserByPassword(String pass) {
-        return userRepository.getUserByPassword(pass);
+        return true;
     }
 
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
 }

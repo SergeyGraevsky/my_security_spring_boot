@@ -12,10 +12,7 @@ public interface UserService {
 
     User saveUser(User user);
 
-    void deleteById(Long id);
-
-    User getUserByPassword(String pass);
+    boolean deleteById(Long id);
 
     User findByUsername(String username);
-
 }

@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class LoginController {
 
     @GetMapping("/hello")
-    public String printWelcome(@AuthenticationPrincipal User activeUser, Model model) {
+    public String userData(@AuthenticationPrincipal User activeUser, Model model) {
         model.addAttribute("roles", activeUser.getRoles());
         model.addAttribute("activeUser", activeUser);
         return "hello";
